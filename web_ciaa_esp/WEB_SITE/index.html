@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title></title>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+   <script type="text/javascript" src="jquery.simple.websocket.js"></script>
+   <style>
+      body {
+         background-color: darkgrey;
+      }
+
+      .edu_ciaa_board {
+         position: relative;
+         margin: 30px auto;
+         width: 610px;
+         height: 972px;
+         background: "img/edu_ciaa_board.png";
+         background-image: url(img/edu_ciaa_board.svg);
+         background-position: left top;
+         background-repeat: no-repeat;
+         background-size: cover;
+      }
+
+      .led {
+         position: absolute;
+         top: 778px;
+         display: inline-block;
+         width: 60px;
+         height: 60px;
+         background-position: left top;
+         background-repeat: no-repeat;
+         background-size: cover;
+      }
+
+      .led:hover {
+         background-position: left top, left top;
+         background-repeat: no-repeat, no-repeat;
+      }
+
+      .ledRgb {
+         background: "img/led_rgb.png";
+         background-image: url(img/led_rgb.svg);
+         -webkit-transform: rotate(-90deg);
+         -moz-transform: rotate(-90deg);
+         -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+         transform: rotate(-90deg);
+      }
+
+      .ledON {
+         background: "img/led_red.png";
+         background-image: url(img/led_red_light.svg), url(img/led_red.svg);
+      }
+
+      .ledRed {
+         background: "img/led_red.png";
+         background-image: url(img/led_red.svg);
+      }
+
+      .ledGreen {
+         background: "img/led_green.png";
+         background-image: url(img/led_green.svg);
+      }
+
+      .ledYellow {
+         background: "img/led_yellow.png";
+         background-image: url(img/led_yellow.svg);
+      }
+
+      .ledBlue {
+         background: "img/led_blue.png";
+         background-image: url(img/led_blue.svg);
+      }
+
+      #led_pwr {
+         top: 146px;
+         left: 0px;
+         -webkit-transform: rotate(-90deg);
+         -moz-transform: rotate(-90deg);
+         -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+         transform: rotate(-90deg);
+      }
+
+      #led_rgb {
+         left: 154px;
+         -webkit-transform: rotate(-90deg);
+         -moz-transform: rotate(-90deg);
+         -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+         transform: rotate(-90deg);
+      }
+
+      #led1 {
+         left: 234px;
+      }
+
+      #led2 {
+         left: 314px;
+      }
+
+      #led3 {
+         left: 394px;
+      }
+
+      .switch {
+         position: absolute;
+         top: 872px;
+         display: inline-block;
+         width: 44px;
+         height: 72px;
+         background-position: left top;
+         background-repeat: no-repeat;
+         background-size: cover;
+         background: "img/sw_release.png";
+         background-image: url(img/sw_release.svg);
+      }
+
+      #tecReset {
+         top: 292px;
+         left: 538px;
+      }
+
+      #tec1 {
+         left: 160px;
+         cursor: pointer;
+      }
+
+      #tec2 {
+         left: 241px;
+         cursor: pointer;
+      }
+
+      #tec3 {
+         left: 323px;
+         cursor: pointer;
+      }
+
+      #tec4 {
+         left: 403px;
+         cursor: pointer;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="edu_ciaa_board">
+      <div class="led ledON" id="led_pwr">
+      </div>
+      <div class="switch" id="tecReset">
+      </div>
+      <div>
+         <div class="led ledRgb" id="led_rgb">
+         </div>
+         <div class="led ledRed" id="led1">
+         </div>
+         <div class="led ledYellow" id="led2">
+         </div>
+         <div class="led ledGreen" id="led3">
+            <!--
+               <img src="led_blue.png" srcset="led_blue.svg" class="imgSVG" alt="Led Blue" title="Led Blue" />
+               -->
+         </div>
+      </div>
+      <div>
+         <div class="switch" id="tec1">
+         </div>
+         <div class="switch" id="tec2">
+         </div>
+         <div class="switch" id="tec3">
+         </div>
+         <div class="switch" id="tec4">
+         </div>
+      </div>
+   </div>
+
+   <script type="text/javascript">
+
+      $("#tec1").mousedown(
+         function () {
+            if (event.which == 1) {
+               ledRgb_ON($(this));
+               sendEvent('1', '1');
+            }
+         }
+      );
+      $("#tec1").mouseup(
+         function () {
+            if (event.which == 1) {
+               ledRgb_OFF($(this));
+               sendEvent('1', '0');
+            }
+         }
+      );
+      $("#tec2").mousedown(
+         function () {
+            if (event.which == 1) {
+               led1_ON($(this));
+               sendEvent('2', '1');
+            }
+         }
+      );
+      $("#tec2").mouseup(
+         function () {
+            if (event.which == 1) {
+               led1_OFF($(this));
+               sendEvent('2', '0');
+            }
+         }
+      );
+      $("#tec3").mousedown(
+         function () {
+            if (event.which == 1) {
+               led2_ON($(this));
+               sendEvent('3', '1');
+            }
+         }
+      );
+      $("#tec3").mouseup(
+         function () {
+            if (event.which == 1) {
+               led2_OFF($(this));
+               sendEvent('3', '0');
+            }
+         }
+      );
+      $("#tec4").mousedown(
+         function () {
+            if (event.which == 1) {
+               led3_ON($(this));
+               sendEvent('4', '1');
+            }
+         }
+      );
+      $("#tec4").mouseup(
+         function (event) {
+            if (event.which == 1) {
+               led3_OFF($(this));
+               sendEvent('4', '0');
+            }
+         }
+      );
+
+      function ledRgb_ON(tecla) {
+         tecla.css("background-image", "url(img/sw_push.svg)");
+         $("#led_rgb").css("background-image", "url(img/led_purple_light.svg), url(img/led_rgb.svg)");
+         $("#led_rgb").css("background-position", "left top, left top");
+         $("#led_rgb").css("background-repeat", "no-repeat, no-repeat");
+      }
+
+      function ledRgb_OFF(tecla) {
+         tecla.css("background-image", "url(img/sw_release.svg)");
+         $("#led_rgb").css("background-image", "url(img/led_rgb.svg)");
+         $("#led_rgb").css("background-position", "left top");
+         $("#led_rgb").css("background-repeat", "no-repeat");
+      }
+
+      function led1_ON(tecla) {
+         tecla.css("background-image", "url(img/sw_push.svg)");
+         $("#led1").css("background-image", "url(img/led_red_light.svg), url(img/led_red.svg)");
+         $("#led1").css("background-position", "left top, left top");
+         $("#led1").css("background-repeat", "no-repeat, no-repeat");
+      }
+
+      function led1_OFF(tecla) {
+         tecla.css("background-image", "url(img/sw_release.svg)");
+         $("#led1").css("background-image", "url(img/led_red.svg)");
+         $("#led1").css("background-position", "left top");
+         $("#led1").css("background-repeat", "no-repeat");
+      }
+
+      function led2_ON(tecla) {
+         tecla.css("background-image", "url(img/sw_push.svg)");
+         $("#led2").css("background-image", "url(img/led_yellow_light.svg), url(img/led_yellow.svg)");
+         $("#led2").css("background-position", "left top, left top");
+         $("#led2").css("background-repeat", "no-repeat, no-repeat");
+      }
+
+      function led2_OFF(tecla) {
+         tecla.css("background-image", "url(img/sw_release.svg)");
+         $("#led2").css("background-image", "url(img/led_yellow.svg)");
+         $("#led2").css("background-position", "left top");
+         $("#led2").css("background-repeat", "no-repeat");
+      }
+
+      function led3_ON(tecla) {
+         tecla.css("background-image", "url(img/sw_push.svg)");
+         $("#led3").css("background-image", "url(img/led_green_light.svg), url(img/led_green.svg)");
+         $("#led3").css("background-position", "left top, left top");
+         $("#led3").css("background-repeat", "no-repeat, no-repeat");
+      }
+
+      function led3_OFF(tecla) {
+         tecla.css("background-image", "url(img/sw_release.svg)");
+         $("#led3").css("background-image", "url(img/led_green.svg)");
+         $("#led3").css("background-position", "left top");
+         $("#led3").css("background-repeat", "no-repeat");
+      }
+
+      var webSocket = $.simpleWebSocket({
+         url: 'ws://192.168.1.102:81/' });
+
+      function sendEvent(led, on) {
+         var ledJson = {
+            "led": led,
+            "on": on
+         }
+         console.log(ledJson);
+
+         webSocket.send(ledJson).done(function () {
+            // message send
+         }).fail(function (e) {
+            // error sending
+         });
+      }
+
+      webSocket.listen(function (message) {
+         console.log("Recibido");
+         console.log(message);
+         switch (message.led) {
+            case 1:
+               if (message.on == 1) {
+                  ledRgb_ON($(this));
+               } else {
+                  ledRgb_OFF($(this));
+               }
+               break;
+            case 2:
+               if (message.on == 1) {
+                  led1_ON($(this));
+               } else {
+                  led1_OFF($(this));
+               }
+               break;
+            case 3:
+               if (message.on == 1) {
+                  led2_ON($(this));
+               } else {
+                  led2_OFF($(this));
+               }
+               break;
+            case 4:
+               if (message.on == 1) {
+                  led3_ON($(this));
+               } else {
+                  led3_OFF($(this));
+               }
+               break;
+         }
+         console.log(message.text);
+      });
+
+   </script>
+
+
+</body>
+
+</html>
