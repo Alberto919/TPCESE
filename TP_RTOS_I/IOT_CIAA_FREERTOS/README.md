@@ -11,6 +11,10 @@ El presente trabajo práctico consiste en la utilización de FreeRTOS, el desarr
 - El  Módulo WIFI deberá publicar un topic en el servidor MQTT cada vez que la TECLA_1 sea pulsada y el LED RGB sea encendido/apagado.
 - Para lograr la comunicación entre la EDU-CIAA y el Esp8266 se desarrolló un protocolo de comunicación que se ejecuta en ambos módulos (CIAA-Esp8266) utilizando el puerto UART.
 
+## Archivos
+- La carpeta EspClientMQTT contiene el codigo, librerias que permiten la conexion a un servidor MQTT y la conexión WIFI y el codigo de la maquina de estados encagado de procesar los mensajes recibidos por el puerto Serie del Esp8266.
+- La carpeta IOTCIAA contiene el codigo, librerias, algoritmos anti-rebote y el codigo de la maquina de estados encagado de procesar los mensajes recibidos por el puerto UART de la placa EDU-CIAA.
+
 ## Demostración
 Se adjunto el video "RTOS_Demostracion.webm" demostrativo de la funcionalidad en este repositorio.
 
