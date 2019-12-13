@@ -1,5 +1,4 @@
-# [EDU-CIAA IOT](http://https://docs.google.com/presentation/d/11pMomkNtEciBdtx1zsFsMKl1bDqaIaTrHMHVl72e4FU/edit?usp=sharing "EDU-CIAA IOT")
-
+# EDU-CIAA IOT
 ## Alcance
 
 El presente trabajo práctico consiste en la utilización de FreeRTOS, el desarrollo de un protocolo de comunicaciones que permitirá la comunicación entre el módulo WIFI y la placa EDU-CIAA a través del puerto UART y la implementación de funciones de comunicación con un Broker MQTT por medio de suscripciones y publicaciones que permitirá encender/apagar el LED RGB como también capturar el evento de la TECLA_1 de manera remota.
