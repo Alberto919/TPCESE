@@ -15,12 +15,12 @@ El presente trabajo práctico consiste en la utilización de FreeRTOS, el desarr
 - La carpeta IOTCIAA contiene el codigo, librerias, algoritmos anti-rebote y el codigo de la maquina de estados encagado de procesar los mensajes recibidos por el puerto UART de la placa EDU-CIAA.
 
 ## Demostración
-Se adjunto el video "RTOS_Demostracion.webm" demostrativo de la funcionalidad en este repositorio, ([para mas detalle ver presentacion](httphttps://docs.google.com/presentation/d/11pMomkNtEciBdtx1zsFsMKl1bDqaIaTrHMHVl72e4FU/edit?usp=sharing:// "para mas detalle ver presentacion")) para el mismo se utilizó tres pantanllas:
+Se adjunto el video "RTOS_Demostracion.webm" demostrativo de la funcionalidad en este repositorio, ([para mas detalle ver presentacion](httphttps://docs.google.com/presentation/d/11pMomkNtEciBdtx1zsFsMKl1bDqaIaTrHMHVl72e4FU/edit?usp=sharing:// "para mas detalle ver presentacion")) para el mismo se utilizó tres pantallas:
 - Primera pantalla de la izquierda corresponde al servidor MQTT en la nube **CloudMQTT**.
 - Pantalla central, es la captura de la pantalla del celular utilizando el servicio online **airmore** que permite visualizar la pantalla de un celular en un navegador web, visualizando la ejecución de una aplicacion y utilizando la camara del celular para filmar el comportamiento de la placa EDU-CIAA a los diferentes eventos.
 - Pantalla derecha corresponde al software **Terminal** incluido en las herramientas de software CIAA para obtener los eventos del Serial del Esp8266
 
 ## Documentos
-En este [link](https://docs.google.com/presentation/d/11pMomkNtEciBdtx1zsFsMKl1bDqaIaTrHMHVl72e4FU/edit?usp=sharing "Propuesta TP") se encuntra la propuesta del proyecto.
+En este [link](https://docs.google.com/document/d/1IpkCeg_G4Kr9UTiBjQHjAVO8RafuIOYNcInUGQhz4nY/edit?usp=sharing "link") se encuentra la propuesta del proyecto.
 
-En este [link](https://docs.google.com/document/d/1IpkCeg_G4Kr9UTiBjQHjAVO8RafuIOYNcInUGQhz4nY/edit?usp=sharing "link") se encuntra la presentacion del proyecto.
+En este [link](https://docs.google.com/presentation/d/11pMomkNtEciBdtx1zsFsMKl1bDqaIaTrHMHVl72e4FU/edit?usp=sharing "Propuesta TP") se encuentra la presentacion del proyecto.
