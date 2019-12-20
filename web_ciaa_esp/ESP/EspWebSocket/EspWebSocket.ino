@@ -22,7 +22,7 @@ IPAddress subnet(255,255,255,0);
 const char *ssid = "WiFi-Arnet-11dv";
 const char *password = "TKCWTYY7LP";
 const char *host = "esp8266sd";
-const int chipSelect = D8;
+const int chipSelect = D1;
 
 ESP8266WebServer server(80);
 
@@ -222,13 +222,13 @@ void returnFail(String msg)
 
 bool loadFromSdCard(String path)
 {
-  String dataType = "text/plain";
+  String dataType = "text/html";
   if (path.endsWith("/"))
-    path += "index.htm";
+    path += "index.html";
 
   if (path.endsWith(".src"))
     path = path.substring(0, path.lastIndexOf("."));
-  else if (path.endsWith(".htm"))
+  else if (path.endsWith(".html"))
     dataType = "text/html";
   else if (path.endsWith(".css"))
     dataType = "text/css";
@@ -236,6 +236,8 @@ bool loadFromSdCard(String path)
     dataType = "application/javascript";
   else if (path.endsWith(".png"))
     dataType = "image/png";
+  else if (path.endsWith(".svg"))
+    dataType = "image/svg+xml";  
   else if (path.endsWith(".gif"))
     dataType = "image/gif";
   else if (path.endsWith(".jpg"))
@@ -250,7 +252,7 @@ bool loadFromSdCard(String path)
   File dataFile = SD.open(path.c_str());
   if (dataFile.isDirectory())
   {
-    path += "/index.htm";
+    path += "/index.html";
     dataType = "text/html";
     dataFile = SD.open(path.c_str());
   }
@@ -446,6 +448,7 @@ void setup(void)
   CIAA.begin(115200);
   pinMode(D2, INPUT);
   pinMode(D3, OUTPUT);
+  pinMode(SS, OUTPUT);
   fsmProtocol->setSerial(&CIAA); 
   DBG_OUTPUT_PORT.setDebugOutput(true);
   DBG_OUTPUT_PORT.print("\n");
