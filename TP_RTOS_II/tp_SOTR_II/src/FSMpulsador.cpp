@@ -12,8 +12,7 @@
 
 #define DEBOUNCE_TIME 20
 
-FSMpulsador::FSMpulsador() {
-	// TODO Auto-generated constructor stub
+FSMpulsador::FSMpulsador(){
 
 }
 
@@ -28,14 +27,14 @@ void FSMpulsador::fsmButtonUpdate(sPulsador* config) {
 
 	switch (config->fsmButtonState) {
 	case STATE_BUTTON_UP:
-		/* COMPRUEBA LAS CONDICIONES DE TRANSICIÓN */
+		/* COMPRUEBA LAS CONDICIONES DE TRANSICIï¿½N */
 		if (!gpioRead(config->tecla)) {
 			config->fsmButtonState = STATE_BUTTON_FALLING;
 		}
 		break;
 	case STATE_BUTTON_FALLING:
 
-		/* COMPRUEBA LAS CONDICIONES DE TRANSICIÓN */
+		/* COMPRUEBA LAS CONDICIONES DE TRANSICIï¿½N */
 		if (config->contFalling >= DEBOUNCE_TIME) {
 			if (!gpioRead(config->tecla)) {
 				config->fsmButtonState = STATE_BUTTON_DOWN;
@@ -51,14 +50,14 @@ void FSMpulsador::fsmButtonUpdate(sPulsador* config) {
 		config->contFalling++;
 		break;
 	case STATE_BUTTON_DOWN:
-		/* COMPRUEBA LAS CONDICIONES DE TRANSICIÓN */
+		/* COMPRUEBA LAS CONDICIONES DE TRANSICIï¿½N */
 		if (gpioRead(config->tecla)) {
 			config->fsmButtonState = STATE_BUTTON_RISING;
 		}
 		break;
 	case STATE_BUTTON_RISING:
 
-		/* COMPRUEBA LAS CONDICIONES DE TRANSICIÓN */
+		/* COMPRUEBA LAS CONDICIONES DE TRANSICIï¿½N */
 
 		if (config->contRising >= DEBOUNCE_TIME) {
 			if (gpioRead(config->tecla)) {
@@ -101,7 +100,7 @@ void FSMpulsador::buttonReleased(sPulsador* config) {
 	//cerrar seccion critica
 	xSemaphoreGive(config->mutex);
 
-	/* señalizo al semaforo para que la tarea del led se ponga en ready */
+	/* seï¿½alizo al semaforo para que la tarea del led se ponga en ready */
 	xSemaphoreGive(config->tecla_pulsada_sem);
 }
 

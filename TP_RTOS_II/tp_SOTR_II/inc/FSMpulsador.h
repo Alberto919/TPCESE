@@ -8,7 +8,6 @@
 #ifndef MY_PROGRAMS_TP_SOTR_II_FSMPULSADOR_H_
 #define MY_PROGRAMS_TP_SOTR_II_FSMPULSADOR_H_
 
-#include "Pulsador.h"
 #include "sapi.h"
 #include "semphr.h"
 

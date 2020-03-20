@@ -46,14 +46,15 @@ const char * const pcTECLA_2 = "TECLA 2 T";
 void tarea_A(void* taskParmPtr) {
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
+	char * message;
 
 	while (1) {
-
 		if( !led ){
 			led = ON;
 			gpioWrite(LEDB, led);
-			// sprintf(buffer,"LED ON",BUFFER_SIZE);
-			xQueueSend(cola, &pcLED_ON,0); // @suppress("Invalid arguments")
+			message = (char *)pvPortMalloc(7);
+			stdioSprintf(message, "%s",pcLED_ON);
+			xQueueSend(cola, &message,0); // @suppress("Invalid arguments")
 			vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(1000));
 		}else{
 			led = OFF;
@@ -70,21 +71,22 @@ void tarea_A(void* taskParmPtr) {
 void tarea_B(void* taskParmPtr) {
 	sPulsador* config = (sPulsador*) taskParmPtr;
 	fsmPulsador->fsmButtonInit(config);
+	char * message;
 
 	while (1) {
 		TickType_t dif;
 		fsmPulsador->fsmButtonUpdate(config);
 		dif = config->tiempo_medido;
-		char concat[20];
-		char *message;
+
 		if (dif > 0){
+			message = (char *)pvPortMalloc(10);
 			if (config->tecla == TEC1){
-				stdioSprintf(concat, "%s%d",pcTECLA_1, dif);
+				stdioSprintf(message, "%s%d",pcTECLA_1, dif);
 			}else{
-				stdioSprintf(concat, "%s%d",pcTECLA_2, dif);
+				stdioSprintf(message, "%s%d",pcTECLA_2, dif);
 			}
-			message = concat;
-			xQueueSend(cola, &message,0);
+
+			xQueueSend(cola, (void *) &message,0);
 			config->tiempo_medido = 0;
 			vTaskDelay(pdMS_TO_TICKS(500));
 		}
@@ -95,11 +97,12 @@ void tarea_B(void* taskParmPtr) {
 // para la tarea que enciende
 // el led de forma periodica
 void tarea_C(void* taskParmPtr) {
-	int pReceivedString;
+	char * pReceivedString;
 
 	while (1) {
 		xQueueReceive(cola, &pReceivedString, portMAX_DELAY); // @suppress("Invalid arguments")
-		stdioPrintf(UART_PC, "%s\r\n", pReceivedString); // @suppress("Invalid arguments")
+		stdioPrintf(UART_PC, "%s\r\n", (char *)pReceivedString); // @suppress("Invalid arguments")
+		vPortFree(pReceivedString);
 	}
 }
 
